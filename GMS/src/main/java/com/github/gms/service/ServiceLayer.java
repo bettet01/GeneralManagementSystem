@@ -9,6 +9,7 @@ import com.github.gms.dto.Department;
 import com.github.gms.dto.Item;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -24,7 +25,7 @@ public interface ServiceLayer {
     
     Item displayItem(String department, String itemName);
     
-    void listAllDepartments();
+    Set<String> listAllDepartments();
     
     Department listItemsByDepartment(String department);
     

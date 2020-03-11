@@ -86,12 +86,10 @@ public class ServiceLayerFileImpl implements ServiceLayer {
     }
 
     @Override
-    public void listAllDepartments() {
-        
+    public Set<String> listAllDepartments() {   
         Set<String> keys = mapDepartments.keySet();
-        for (String k : keys) {
-            System.out.println(keys);
-        }
+        
+        return keys;
     }
 
     @Override
