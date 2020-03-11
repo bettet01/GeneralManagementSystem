@@ -20,12 +20,12 @@ public interface ServiceLayer {
     
     Item editItem();
     
-    Item removeItem();
+    Item removeItem(Item toRemove);
     
     Item displayItem();
     
     List<Department> listAllDepartments();
     
-    HashMap<String, Department> listFoodByDeprtment();
+    HashMap<String, Department> listItemByDeprtment();
     
 }
