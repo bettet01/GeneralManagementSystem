@@ -6,25 +6,37 @@ import java.util.HashMap;
 
 
 /**
-* @author Ethan Bettenga
-* Department
-*/
-
+ * @author Ethan Bettenga Department
+ */
 public class Department {
+
+
 	String name;
 	HashMap<String, Item> items = new HashMap<>();
 
-	public Department(){
 
-	}
+   
 
-	public String getName() {
-		return this.name;
-	}
+    public Department() {
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    }
+
+    public Department(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Item> getItems() {
+        return this.items;
+    }
+
 
 	public Collection<Item> getItems() {
 		return this.items.values();
@@ -34,8 +46,4 @@ public class Department {
 		items.put(item.getName(), item);
 	}
 
-	public void removeItem(Item item){
-		items.remove(item);
-	}
-	
 }

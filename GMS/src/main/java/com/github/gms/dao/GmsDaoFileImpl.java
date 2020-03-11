@@ -5,17 +5,21 @@
  */
 package com.github.gms.dao;
 
+import com.github.gms.dto.Department;
 import com.github.gms.dto.Item;
 import com.sun.tools.javac.jvm.Items;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,25 +32,39 @@ import java.util.stream.Collectors;
  */
 public class GmsDaoFileImpl implements GmsDao {
 
+    public static void main(String[] args) {
+        int count = 0;
+        File file = new File("/Users/briannaschladweiler/Documents/GeneralManagementSystem/GMS/resources");
+        String[] pathnames = file.list();
+        String[] departments = new String[pathnames.length];
+        for (String pathname : pathnames) {
+            String result = pathname.substring(0, pathname.length() - 4);
+            departments[count] = result;
+            count++;
+        }
+
+        Map<String, Department> departmentMap = new HashMap<>();
+        for (String department : departments) {
+            Department newDepartment = new Department(department);
+            departmentMap.put(department, newDepartment);
+        }
+        return departmentMap;
+
+        System.out.println(Arrays.toString(departments));
+    }
+
     public static final String ROSTER_FILE = "roster.txt";
     public static final String DELIMITER = "::";
 
     private Map<String, Item> itemMap = new HashMap<>();
-    
+
     @Override
     public Item addItem(String name, Item item)
-            throws ItemDaoException {
+            throws GmsDaoException {
         loadLibrary();
         Item newItem = items.put(name, item);
         writeLibrary();
         return newItem;
-    }
-
-    @Override
-    public List<Items> getAllItems()
-            throws GmsDaoException {
-        loadLibrary();
-        return new ArrayList(items.values());
     }
 
     @Override
@@ -74,13 +92,13 @@ public class GmsDaoFileImpl implements GmsDao {
     }
 
     @Override
-        public List<Item> getItemByName(String name) {
+    public List<Item> getItemByName(String name) {
         return itemMap.values()
                 .stream()
                 .filter(s -> s.getName().equalsIgnoreCase(name))
                 .collect(Collectors.toList());
     }
-    
+
     private Map<String, Item> items = new HashMap<>();
 
     private Item unmarshallItem(String itemAsText) {
@@ -93,47 +111,65 @@ public class GmsDaoFileImpl implements GmsDao {
         String[] itemTokens = itemAsText.split(DELIMITER);
 
         String name = itemTokens[0];
-        
+
         LocalDate expDate = LocalDate.parse(itemTokens[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         Item itemFromFile = new Item(name);
 
-        itemFromFile.setItemCount(itemTokens[2]);
+        itemFromFile.setItemCount(Integer.parseInt(itemTokens[2]));
 
-        itemFromFile.setPpu(itemTokens[3]);
-        
+        itemFromFile.setPpu(new BigDecimal(itemTokens[3]));
+
         itemFromFile.setDepartment(itemTokens[4]);
 
         return itemFromFile;
     }
 
-    private void loadLibrary() throws GmsDaoException {
+    private static Map<String, Department> loadLibrary() throws GmsDaoException {
         Scanner scanner;
 
-        try {
-
-            scanner = new Scanner(
-                    new BufferedReader(
-                            new FileReader(ROSTER_FILE)));
-        } catch (FileNotFoundException e) {
-            throw new GmsDaoException(
-                    "-_- Could not load library data into memory.", e);
+        int count = 0;
+        File file = new File("/Users/briannaschladweiler/Documents/GeneralManagementSystem/GMS/resources");
+        String[] pathnames = file.list();
+        String[] departments = new String[pathnames.length];
+        for (String pathname : pathnames) {
+            String result = pathname.substring(0, pathname.length() - 4);
+            departments[count] = result;
+            count++;
         }
 
-        String currentLine;
-   
-        Item currentItem;
-
-        while (scanner.hasNextLine()) {
-           
-            currentLine = scanner.nextLine();
-
-            currentItem = unmarshallItem(currentLine);
-
-            items.put(currentItem.getName(), currentItem);
+        Map<String, Department> departmentMap = new HashMap<>();
+        for (String department : departments) {
+            Department newDepartment = new Department(department);
+            departmentMap.put(department, newDepartment);
         }
 
-        scanner.close();
+        return departmentMap;
+
+//        try {
+//
+//            scanner = new Scanner(
+//                    new BufferedReader(
+//                            new FileReader(ROSTER_FILE)));
+//        } catch (FileNotFoundException e) {
+//            throw new GmsDaoException(
+//                    "-_- Could not load library data into memory.", e);
+//        }
+//
+//        String currentLine;
+//
+//        Item currentItem;
+//
+//        while (scanner.hasNextLine()) {
+//
+//            currentLine = scanner.nextLine();
+//
+//            currentItem = unmarshallItem(currentLine);
+//
+//            items.put(currentItem.getName(), currentItem);
+//        }
+//
+//        scanner.close();
     }
 
     private String marshallItem(Item aItem) {
@@ -165,7 +201,7 @@ public class GmsDaoFileImpl implements GmsDao {
         String itemAsText;
         List<Item> itemList = this.getAllItems();
         for (Item currentItem : itemList) {
-            
+
             itemAsText = marshallItem(currentItem);
 
             out.println(itemAsText);
