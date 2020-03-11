@@ -10,8 +10,10 @@ import com.github.gms.dto.Item;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -19,7 +21,6 @@ import java.util.List;
  */
 public class ServiceLayerFileImpl implements ServiceLayer {
     HashMap<String, Department> mapDepartments = new HashMap<>();
-    List<Department> listDepartments = new ArrayList();
     
     public void createItem(String name, LocalDate expDate, int itemCount, BigDecimal ppu, String department){
         
@@ -30,37 +31,69 @@ public class ServiceLayerFileImpl implements ServiceLayer {
     }
     
     @Override
-    public Item removeItem(Item toRemove) {
+    public void removeItem(String itToRemove, String department) {
         
-        Item itemRemove = new Item();
-        Department department = mapDepartments.get(itemRemove.getDepartment());
-        department.removeItem(itemRmove);
+        Department depart = mapDepartments.get(department);
+        Collection<Item> collection = depart.getItems();
+                
+        for (Item item : collection) {
+            if(itToRemove.equals(item.getName())) {
+                Item itemR = item;
+                depart.removeItem(itemR);
+            }
+        }
+    }
+
+    @Override
+    public Item editItem(String choice, String itemName) {
+        Set<String> depKey = mapDepartments.keySet();
+            for (String k : depKey) {
+                System.out.println( k + "    " + mapDepartments.get(k));
+                if ((mapDepartments.get(k).getName().equals(itemName))) {
+                    Item choiceItem = 
+                }
+            }
+            Department depart = mapDepartments.get(department);
+            Collection<Item> collection = depart.getItems();
+            for (Item item : collection) {
+            if(itemName.equals(item.getName())) {
+                Item itemR = item;
+                return itemR;
+            }
+        }
+        }
+
+    @Override
+    public Item displayItem(String department, String itemName) {
+        Department depart = mapDepartments.get(department);
+        Collection<Item> collection = depart.getItems();
+                
+        for (Item item : collection) {
+            if(itemName.equals(item.getName())) {
+                Item itemR = item;
+                return itemR;
+            }
+        }
+    }
+
+    @Override
+    public void listAllDepartments() {
         
+        Set<String> keys = mapDepartments.keySet();
+        for (String k : keys) {
+            System.out.println(keys);
+        }
     }
 
     @Override
-    public Item createItem() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Item editItem() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Item displayItem() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Department> listAllDepartments() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public HashMap<String, Department> listItemByDeprtment() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public HashMap<String, Department> listItemsByDepartment(String department) {
+        Department depart = mapDepartments.get(department);
+        
+        Set<String> keys = mapDepartments.keySet();
+        for (String k : keys) {
+            //view display here
+        }
+        
     }
     
      

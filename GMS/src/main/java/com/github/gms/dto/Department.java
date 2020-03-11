@@ -1,7 +1,9 @@
 package com.github.gms.dto;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.Collection;
+import java.util.HashMap;
+
 
 /**
 * @author Ethan Bettenga
@@ -10,7 +12,7 @@ import java.util.List;
 
 public class Department {
 	String name;
-	List<Item> items = new ArrayList<>();
+	HashMap<String, Item> items = new HashMap<>();
 
 	public Department(){
 
@@ -24,12 +26,12 @@ public class Department {
 		this.name = name;
 	}
 
-	public List<Item> getItems() {
-		return this.items;
+	public Collection<Item> getItems() {
+		return this.items.values();
 	}
 
 	public void addItem(Item item){
-		items.add(item);
+		items.put(item.getName(), item);
 	}
 
 	public void removeItem(Item item){
