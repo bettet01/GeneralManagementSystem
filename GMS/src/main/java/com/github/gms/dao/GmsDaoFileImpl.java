@@ -52,7 +52,6 @@ public class GmsDaoFileImpl implements GmsDao {
         
         //return departmentMap;
 
-        
     }
 
     public static final String ROSTER_FILE = "roster.txt";
@@ -160,23 +159,19 @@ public class GmsDaoFileImpl implements GmsDao {
                     "Could not save item data.", e);
         }
 
-        String itemAsText;
-        List<Item> itemList = this.getAllItems();
-        for (Item currentItem : itemList) {
-
-            itemAsText = marshallItem(currentItem);
-
-            out.println(itemAsText);
-
-            out.flush();
-        }
-
-        out.close();
+//        String itemAsText;
+//        List<Item> itemList = this.getAllItems();
+//        for (Item currentItem : itemList) {
+//
+//            itemAsText = marshallItem(currentItem);
+//
+//            out.println(itemAsText);
+//
+//            out.flush();
+//        }
+//
+//        out.close();
     }
 
-    @Override
-    public List<Item> getAllItems() throws GmsDaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }
