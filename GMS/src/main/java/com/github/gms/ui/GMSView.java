@@ -76,7 +76,7 @@ public class GMSView {
 		io.print("\tName: " + item.getName());
 		io.print("\tPrice: " + item.getPpu());
 		io.print("\tInv Count: " + item.getItemCount());
-		io.print("Exp Date: " + item.getExpDate());
+		io.print("\tExp Date: " + item.getExpDate());
 		io.print("---   ---");
 	}
 
