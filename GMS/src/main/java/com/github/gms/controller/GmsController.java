@@ -26,6 +26,13 @@ public class GmsController {
 
 	public void execute() {
 		boolean gameOn = true;
+
+		try {
+			service.load();
+		} catch (Exception e) {
+			System.out.println("oops.");
+			e.printStackTrace();
+		}
 		while (gameOn) {
 			int x = mainMenu();
 			switch (x) {
