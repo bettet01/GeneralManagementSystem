@@ -33,7 +33,7 @@ public class GmsDaoFileImpl implements GmsDao {
     private Map<String, Item> itemMap = new HashMap<>();
     
     @Override
-    public Item addItem(String title, Item item)
+    public Item addItem(String name, Item item)
             throws ItemDaoException {
         loadLibrary();
         Item newItem = items.put(name, item);
@@ -49,168 +49,129 @@ public class GmsDaoFileImpl implements GmsDao {
     }
 
     @Override
-    public Dvd getDvd(String title)
-            throws DvdLibraryDaoException {
+    public Item getItem(String name)
+            throws GmsDaoException {
         loadLibrary();
-        return dvds.get(title);
+        return items.get(name);
     }
 
     @Override
-    public Dvd removeDvd(String title)
-            throws DvdLibraryDaoException {
+    public Item removeItem(String name)
+            throws GmsDaoException {
         loadLibrary();
-        Dvd removedDvd = dvds.remove(title);
+        Item removedItem = items.remove(name);
         writeLibrary();
-        return removedDvd;
+        return removedItem;
     }
 
     @Override
-    public Dvd editDvd(String title, Dvd dvd) throws DvdLibraryDaoException {
+    public Item editItem(String name, Item item) throws GmsDaoException {
         loadLibrary();
-        Dvd editDvd = dvds.put(title, dvd);
+        Item editItem = items.put(name, item);
         writeLibrary();
-        return editDvd;
+        return editItem;
     }
 
     @Override
-        public List<Dvd> getDvdByDirector(String director) {
-        return dvdMap.values()
+        public List<Item> getItemByName(String name) {
+        return itemMap.values()
                 .stream()
-                .filter(s -> s.getDirectorName().equalsIgnoreCase(director))
+                .filter(s -> s.getName().equalsIgnoreCase(name))
                 .collect(Collectors.toList());
     }
     
-    private Map<String, Dvd> dvds = new HashMap<>();
+    private Map<String, Item> items = new HashMap<>();
 
-    private Dvd unmarshallDvd(String dvdAsText) {
-        // dvdAsText is expecting a line read in from our file.
-        // For example, it might look like this:
-        // Title::Release::Rating::Director::Studio::Note
-        //
-        // We then split that line on our DELIMITER - which we are using as ::
-        // Leaving us with an array of Strings, stored in dvdTokens.
-        // Which should look like this:
-        // ______________________________________________________
-        // |       |         |        |          |        |      |
-        // | Title | Release | Rating | Director | Studio | Note |
-        // |       |         |        |          |        |      |
-        // ------------------------------------------------------
-        //  [0]       [1]       [2]      [3]        [4]      [5]
-        String[] dvdTokens = dvdAsText.split(DELIMITER);
+    private Item unmarshallItem(String itemAsText) {
+        // ___________________________________________________
+        // |       |         |           |          |        |  
+        // | Item  | ExpDate | ItemCount |    ppu   | dept   | 
+        // |       |         |           |          |        |    
+        // ---------------------------------------------------
+        //  [0]       [1]       [2]          [3]        [4]      
+        String[] itemTokens = itemAsText.split(DELIMITER);
 
-        // Given the pattern above, the title is in index 0 of the array.
-        String title = dvdTokens[0];
+        String name = itemTokens[0];
         
-        LocalDate releaseDate = LocalDate.parse(dvdTokens[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate expDate = LocalDate.parse(itemTokens[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        // Which we can then use to create a new Dvd object to satisfy
-        // the requirements of the Dvd constructor.
-        Dvd dvdFromFile = new Dvd(title);
+        Item itemFromFile = new Item(name);
 
-        // However, there are 5 remaining tokens that need to be set into the
-        // new dvd object. Do this manually by using the appropriate setters.
-        dvdFromFile.setReleaseDate(releaseDate);
+        itemFromFile.setItemCount(itemTokens[2]);
 
-        dvdFromFile.setRating(dvdTokens[2]);
+        itemFromFile.setPpu(itemTokens[3]);
+        
+        itemFromFile.setDepartment(itemTokens[4]);
 
-        dvdFromFile.setDirectorName(dvdTokens[3]);
-
-        dvdFromFile.setStudio(dvdTokens[4]);
-
-        dvdFromFile.setUserNote(dvdTokens[5]);
-        // Dvd now created, must return it
-        return dvdFromFile;
+        return itemFromFile;
     }
 
-    private void loadLibrary() throws DvdLibraryDaoException {
+    private void loadLibrary() throws GmsDaoException {
         Scanner scanner;
 
         try {
-            // Create Scanner for reading the file
+
             scanner = new Scanner(
                     new BufferedReader(
                             new FileReader(ROSTER_FILE)));
         } catch (FileNotFoundException e) {
-            throw new DvdLibraryDaoException(
+            throw new GmsDaoException(
                     "-_- Could not load library data into memory.", e);
         }
-        // currentLine holds the most recent line read from the file
-        String currentLine;
-        // currentDvd holds the most recent dvd unmarshalled
-        Dvd currentDvd;
-        // Go through ROSTER_FILE line by line, decoding each line into a 
-        // Dvd object by calling the unmarshallDvd method.
-        // Process while we have more lines in the file
-        while (scanner.hasNextLine()) {
-            // get the next line in the file
-            currentLine = scanner.nextLine();
-            // unmarshall the line into a Dvd
-            currentDvd = unmarshallDvd(currentLine);
 
-            // We are going to use the title as the map key for our dvd object.
-            // Put currentDvd into the map using title as the key
-            dvds.put(currentDvd.getTitle(), currentDvd);
+        String currentLine;
+   
+        Item currentItem;
+
+        while (scanner.hasNextLine()) {
+           
+            currentLine = scanner.nextLine();
+
+            currentItem = unmarshallItem(currentLine);
+
+            items.put(currentItem.getName(), currentItem);
         }
-        // close scanner
+
         scanner.close();
     }
 
-    private String marshallDvd(Dvd aDvd) {
-        // We need to turn a Dvd object into a line of text for our file.
+    private String marshallItem(Item aItem) {
 
-        // It's not a complicated process. Just get out each property,
-        // and concatenate with our DELIMITER as a kind of spacer. 
-        // Start with the title, since that's supposed to be first.
-        String dvdAsText = aDvd.getTitle() + DELIMITER;
+        String itemAsText = aItem.getName() + DELIMITER;
 
-        // add the rest of the properties in the correct order:
-        dvdAsText += aDvd.getReleaseDate().toString() + DELIMITER;
+        itemAsText += aItem.getExpDate().toString() + DELIMITER;
 
-        dvdAsText += aDvd.getRating() + DELIMITER;
+        itemAsText += aItem.getItemCount() + DELIMITER;
 
-        dvdAsText += aDvd.getDirectorName() + DELIMITER;
+        itemAsText += aItem.getPpu() + DELIMITER;
 
-        dvdAsText += aDvd.getStudio() + DELIMITER;
+        itemAsText += aItem.getDepartment() + DELIMITER;
 
-        
-        if (aDvd.getUserNote().equals("")) {
-                aDvd.setUserNote(" ");
-            }
-
-        dvdAsText += aDvd.getUserNote() + DELIMITER;
-
-        // We have now turned a dvd to text! Return it!
-        return dvdAsText;
+        return itemAsText;
     }
 
-    /**
-     * Writes all dvds in the roster out to a ROSTER_FILE. See loadRoster for
-     * file format.
-     *
-     * @throws ClassRosterDaoException if an error occurs writing to the file
-     */
-    private void writeLibrary() throws DvdLibraryDaoException {
+    private void writeLibrary() throws GmsDaoException {
 
         PrintWriter out;
 
         try {
             out = new PrintWriter(new FileWriter(ROSTER_FILE));
         } catch (IOException e) {
-            throw new DvdLibraryDaoException(
-                    "Could not save DVD data.", e);
+            throw new GmsDaoException(
+                    "Could not save item data.", e);
         }
 
-        String dvdAsText;
-        List<Dvd> dvdList = this.getAllDvds();
-        for (Dvd currentDvd : dvdList) {
-            // turn a Dvd into a String
-            dvdAsText = marshallDvd(currentDvd);
-            // write the Dvd object to the file
-            out.println(dvdAsText);
-            // force PrintWriter to write line to the file
+        String itemAsText;
+        List<Item> itemList = this.getAllItems();
+        for (Items currentItem : itemList) {
+            
+            itemAsText = marshallItem(currentItem);
+
+            out.println(itemAsText);
+
             out.flush();
         }
-        // Clean up
+
         out.close();
     }
 
