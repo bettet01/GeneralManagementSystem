@@ -5,6 +5,8 @@
  */
 package com.github.gms.service;
 
+import com.github.gms.dto.Department;
+import com.github.gms.dto.Item;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,12 +20,12 @@ public interface ServiceLayer {
     
     Item editItem();
     
-    Item removeItem();
+    Item removeItem(Item toRemove);
     
     Item displayItem();
     
     List<Department> listAllDepartments();
     
-    HashMap<String, Department> listFoodByDeprtment();
+    HashMap<String, Department> listItemByDeprtment();
     
 }
