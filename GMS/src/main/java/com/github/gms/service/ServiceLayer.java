@@ -5,10 +5,25 @@
  */
 package com.github.gms.service;
 
+import java.util.HashMap;
+import java.util.List;
+
 /**
  *
  * @author briannaschladweiler
  */
 public interface ServiceLayer {
+    
+    Item createItem();
+    
+    Item editItem();
+    
+    Item removeItem();
+    
+    Item displayItem();
+    
+    List<Department> listAllDepartments();
+    
+    HashMap<String, Department> listFoodByDeprtment();
     
 }
