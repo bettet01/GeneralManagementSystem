@@ -48,56 +48,17 @@ public class GmsDaoFileImpl implements GmsDao {
             Department newDepartment = new Department(department);
             departmentMap.put(department, newDepartment);
         }
-        return departmentMap;
-
         System.out.println(Arrays.toString(departments));
+        
+        //return departmentMap;
+
+        
     }
 
     public static final String ROSTER_FILE = "roster.txt";
     public static final String DELIMITER = "::";
 
     private Map<String, Item> itemMap = new HashMap<>();
-
-    @Override
-    public Item addItem(String name, Item item)
-            throws GmsDaoException {
-        loadLibrary();
-        Item newItem = items.put(name, item);
-        writeLibrary();
-        return newItem;
-    }
-
-    @Override
-    public Item getItem(String name)
-            throws GmsDaoException {
-        loadLibrary();
-        return items.get(name);
-    }
-
-    @Override
-    public Item removeItem(String name)
-            throws GmsDaoException {
-        loadLibrary();
-        Item removedItem = items.remove(name);
-        writeLibrary();
-        return removedItem;
-    }
-
-    @Override
-    public Item editItem(String name, Item item) throws GmsDaoException {
-        loadLibrary();
-        Item editItem = items.put(name, item);
-        writeLibrary();
-        return editItem;
-    }
-
-    @Override
-    public List<Item> getItemByName(String name) {
-        return itemMap.values()
-                .stream()
-                .filter(s -> s.getName().equalsIgnoreCase(name))
-                .collect(Collectors.toList());
-    }
 
     private Map<String, Item> items = new HashMap<>();
 
