@@ -30,4 +30,6 @@ public interface GmsDao {
             throws GmsDaoException;
  
     public List<Item> getItemByName(String name);
+    
+    void loadLibrary() throws GmsDaoException;
 }

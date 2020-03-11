@@ -16,16 +16,18 @@ import java.util.List;
  */
 public interface ServiceLayer {
     
-    Item createItem();
+    void createItem(Item item);
     
-    Item editItem(String edit, String choice, String itemName);
+    void editItem(String edit, String choice, String itemName);
     
-    void removeItem(Item toRemove);
+    void removeItem(String itToRemove, String department);
     
-    Item displayItem();
+    Item displayItem(String department, String itemName);
     
     void listAllDepartments();
     
-    HashMap<String, Department> listItemByDeprtment(String department);
+    Department listItemsByDepartment(String department);
+    
+    HashMap<String, Department> load();
     
 }

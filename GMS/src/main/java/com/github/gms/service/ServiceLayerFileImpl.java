@@ -5,14 +5,13 @@
  */
 package com.github.gms.service;
 
+import com.github.gms.dao.GmsDao;
 import com.github.gms.dto.Department;
 import com.github.gms.dto.Item;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,7 +20,13 @@ import java.util.Set;
  */
 public class ServiceLayerFileImpl implements ServiceLayer {
     HashMap<String, Department> mapDepartments = new HashMap<>();
+    GmsDao dao;
     
+    public ServiceLayerFileImpl(GmsDao dao) {
+        this.dao = dao;
+    }
+    
+    @Override
     public void createItem(Item item){
        
         Department depAdd = mapDepartments.get(item.getDepartment());
@@ -45,7 +50,7 @@ public class ServiceLayerFileImpl implements ServiceLayer {
     }
 
     @Override
-    public Item editItem(String edit, String choice, String itemName) {
+    public void editItem(String edit, String choice, String itemName) {
         Set<String> depKey = mapDepartments.keySet();
             for (String k : depKey) {
                 for (Item j : mapDepartments.get(k).getItems()) {
@@ -77,6 +82,7 @@ public class ServiceLayerFileImpl implements ServiceLayer {
                 return itemR;
             }
         }
+        return null;
     }
 
     @Override
@@ -89,15 +95,15 @@ public class ServiceLayerFileImpl implements ServiceLayer {
     }
 
     @Override
-    public HashMap<String, Department> listItemsByDepartment(String department) {
+    public Department listItemsByDepartment(String department) {
         Department depart = mapDepartments.get(department);
         
-        Set<String> keys = mapDepartments.keySet();
-        for (String k : keys) {
-            //view display here
-        }
-        
-    }
+        return depart; 
+    } 
     
-     
+    @Override
+    public HashMap<String, Department> load() {
+        mapDepartments = dao.loadLibrary();
+    }
 }
+
