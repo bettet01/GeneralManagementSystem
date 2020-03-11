@@ -6,6 +6,7 @@
 package com.github.gms.dao;
 
 import com.github.gms.dto.Item;
+import com.sun.tools.javac.jvm.Items;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -42,7 +43,7 @@ public class GmsDaoFileImpl implements GmsDao {
     }
 
     @Override
-    public List<Items> getAllDvds()
+    public List<Items> getAllItems()
             throws GmsDaoException {
         loadLibrary();
         return new ArrayList(items.values());
@@ -163,7 +164,7 @@ public class GmsDaoFileImpl implements GmsDao {
 
         String itemAsText;
         List<Item> itemList = this.getAllItems();
-        for (Items currentItem : itemList) {
+        for (Item currentItem : itemList) {
             
             itemAsText = marshallItem(currentItem);
 
@@ -173,6 +174,11 @@ public class GmsDaoFileImpl implements GmsDao {
         }
 
         out.close();
+    }
+
+    @Override
+    public List<Item> getAllItems() throws GmsDaoException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
