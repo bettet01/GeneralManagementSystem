@@ -48,7 +48,7 @@ public class GMSView {
 	public Item displayaddItem(){
 		io.print("--- Add Item ---");
 		String name = io.readString("Name of Item: ");
-		LocalDate exp = io.readLocalDate("Experation Date (If Applicable): ");
+		LocalDate exp = io.setLocalDate("Experation Date (If Applicable): ");
 		int count = io.readInt("Number of Items in inventory: ");
 		BigDecimal ppu = io.readBigDecimal("Price per unit: ");
 		String department = io.readString("Department Name: ");
