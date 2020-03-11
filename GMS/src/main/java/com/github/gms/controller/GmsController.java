@@ -63,5 +63,7 @@ public class GmsController {
 	public void addItem(){
 		Item item = view.displayaddItem();
 		service.createItem(item);
+		view.displayItem(item);
 	}
+	
 }  

@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface ServiceLayer {
     
-    Item createItem();
+    void createItem(Item item);
     
     Item editItem();
     
