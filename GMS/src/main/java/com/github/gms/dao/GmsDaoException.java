@@ -9,6 +9,13 @@ package com.github.gms.dao;
  *
  * @author briannaschladweiler
  */
-public class GmsDaoException {
-    
+public class GmsDaoException extends Exception {
+
+    public GmsDaoException(String message) {
+        super(message);
+    }
+
+    public GmsDaoException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
