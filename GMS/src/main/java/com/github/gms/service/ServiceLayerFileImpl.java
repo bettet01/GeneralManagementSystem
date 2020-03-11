@@ -22,11 +22,11 @@ import java.util.Set;
 public class ServiceLayerFileImpl implements ServiceLayer {
     HashMap<String, Department> mapDepartments = new HashMap<>();
     
-    public void createItem(String name, LocalDate expDate, int itemCount, BigDecimal ppu, String department){
+    public void createItem(Item item){
+       
+        Department depAdd = mapDepartments.get(item.getDepartment());
+        depAdd.addItem(item);
         
-        Item newItem = new Item(name, expDate, itemCount, ppu, department);
-        Department depAdd = mapDepartments.get(newItem.getDepartment());
-        depAdd.addItem(newItem);
         
     }
     
@@ -48,7 +48,11 @@ public class ServiceLayerFileImpl implements ServiceLayer {
     public Item editItem(String choice, String itemName) {
         Set<String> depKey = mapDepartments.keySet();
             for (String k : depKey) {
-                System.out.println( k + "    " + mapDepartments.get(k));
+                for (String j : mapDepartments.get(k)) {
+                    
+                }
+                
+                
                 if ((mapDepartments.get(k).getName().equals(itemName))) {
                     Item choiceItem = 
                 }
