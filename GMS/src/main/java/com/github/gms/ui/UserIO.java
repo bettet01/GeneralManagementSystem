@@ -36,4 +36,6 @@ public interface UserIO {
     BigDecimal readBigDecimal(String prompt);
     
     LocalDate readLocalDate(String prompt);
+
+	LocalDate setLocalDate(String string);
 }

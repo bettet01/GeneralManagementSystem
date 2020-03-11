@@ -167,4 +167,20 @@ public class UserIOConsoleImpl implements UserIO{
         LocalDate ld = LocalDate.parse(date, dateFormat);
         return ld;
     }
+
+    public LocalDate setLocalDate(String prompt){
+		while(true){
+			try {
+				System.out.print(prompt);
+                String date = sc.nextLine();
+                if(date.equals("")){
+                    return null;
+                }
+				LocalDate localDate = LocalDate.parse(date);
+				return localDate;
+			} catch (Exception e) {
+				System.out.println("Incorrect date format. Please enter date as YYYY-MM-DD. ");
+			}
+		}
+	}
 }
