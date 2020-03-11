@@ -18,14 +18,14 @@ public interface ServiceLayer {
     
     Item createItem();
     
-    Item editItem();
+    Item editItem(String edit, String choice, String itemName);
     
-    Item removeItem(Item toRemove);
+    void removeItem(Item toRemove);
     
     Item displayItem();
     
-    List<Department> listAllDepartments();
+    void listAllDepartments();
     
-    HashMap<String, Department> listItemByDeprtment();
+    HashMap<String, Department> listItemByDeprtment(String department);
     
 }

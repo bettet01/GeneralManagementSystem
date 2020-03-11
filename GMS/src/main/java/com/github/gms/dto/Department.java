@@ -1,15 +1,21 @@
 package com.github.gms.dto;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.Collection;
+import java.util.HashMap;
+
 
 /**
  * @author Ethan Bettenga Department
  */
 public class Department {
 
-    String name;
-    List<Item> items = new ArrayList<>();
+
+	String name;
+	HashMap<String, Item> items = new HashMap<>();
+
+
+   
 
     public Department() {
 
@@ -31,12 +37,13 @@ public class Department {
         return this.items;
     }
 
-    public void addItem(Item item) {
-        items.add(item);
-    }
 
-    public void removeItem(Item item) {
-        items.remove(item);
-    }
+	public Collection<Item> getItems() {
+		return this.items.values();
+	}
+
+	public void addItem(Item item){
+		items.put(item.getName(), item);
+	}
 
 }
