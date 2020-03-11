@@ -46,26 +46,25 @@ public class ServiceLayerFileImpl implements ServiceLayer {
     }
 
     @Override
-    public Item editItem(String choice, String itemName) {
+    public Item editItem(String edit, String choice, String itemName) {
         Set<String> depKey = mapDepartments.keySet();
             for (String k : depKey) {
-                for (String j : mapDepartments.get(k)) {
-                    
-                }
-                
-                
-                if ((mapDepartments.get(k).getName().equals(itemName))) {
-                    Item choiceItem = 
+                for (Item j : mapDepartments.get(k).getItems()) {
+                    switch (choice) {
+                        case "1":
+                            int iEdit = Integer.parseInt(edit);
+                            j.setItemCount(iEdit);
+                            break;
+                        case "2":
+                            BigDecimal bdEdit = new BigDecimal(edit);
+                            j.setPpu(bdEdit);
+                            break;
+                        case "3":
+                            LocalDate ldEdit = LocalDate.parse(edit);
+                            j.setExpDate(ldEdit);
+                    }
                 }
             }
-            Department depart = mapDepartments.get(department);
-            Collection<Item> collection = depart.getItems();
-            for (Item item : collection) {
-            if(itemName.equals(item.getName())) {
-                Item itemR = item;
-                return itemR;
-            }
-        }
         }
 
     @Override
