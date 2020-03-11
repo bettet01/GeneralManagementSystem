@@ -32,12 +32,7 @@ public class Department {
     public void setName(String name) {
         this.name = name;
     }
-
-    public List<Item> getItems() {
-        return this.items;
-    }
-
-
+    
 	public Collection<Item> getItems() {
 		return this.items.values();
 	}

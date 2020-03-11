@@ -28,6 +28,6 @@ public interface ServiceLayer {
     
     Department listItemsByDepartment(String department);
     
-    HashMap<String, Department> load();
+    void load() throws Exception;
     
 }

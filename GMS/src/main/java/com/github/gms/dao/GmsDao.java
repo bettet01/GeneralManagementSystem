@@ -5,7 +5,9 @@
  */
 package com.github.gms.dao;
 
+import com.github.gms.dto.Department;
 import com.github.gms.dto.Item;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -31,5 +33,5 @@ public interface GmsDao {
  
     public List<Item> getItemByName(String name);
     
-    void loadLibrary() throws GmsDaoException;
+    HashMap<String, Department> loadLibrary() throws GmsDaoException;
 }

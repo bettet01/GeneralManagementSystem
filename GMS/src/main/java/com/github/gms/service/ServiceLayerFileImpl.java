@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -102,7 +103,7 @@ public class ServiceLayerFileImpl implements ServiceLayer {
     } 
     
     @Override
-    public HashMap<String, Department> load() {
+    public void load() throws Exception{
         mapDepartments = dao.loadLibrary();
     }
 }

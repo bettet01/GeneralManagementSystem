@@ -86,7 +86,8 @@ public class GmsDaoFileImpl implements GmsDao {
         return itemFromFile;
     }
 
-    private static Map<String, Department> loadLibrary() throws GmsDaoException {
+    @Override
+    public HashMap<String, Department> loadLibrary() throws GmsDaoException {
         Scanner scanner;
 
         int count = 0;
@@ -99,7 +100,7 @@ public class GmsDaoFileImpl implements GmsDao {
             count++;
         }
 
-        Map<String, Department> departmentMap = new HashMap<>();
+        HashMap<String, Department> departmentMap = new HashMap<>();
         for (String department : departments) {
             Department newDepartment = new Department(department);
             departmentMap.put(department, newDepartment);
