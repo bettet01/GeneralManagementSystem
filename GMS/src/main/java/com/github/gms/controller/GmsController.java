@@ -7,6 +7,7 @@ package com.github.gms.controller;
 
 import javax.swing.text.View;
 
+import com.github.gms.dto.Item;
 import com.github.gms.service.ServiceLayer;
 import com.github.gms.ui.GMSView;
 
@@ -29,7 +30,7 @@ public class GmsController {
 			int x = mainMenu();
 			switch (x) {
 				case 1:
-					System.out.println("Hi");
+					addItem();
 					break;
 				case 2:
 
@@ -58,4 +59,9 @@ public class GmsController {
 	public int mainMenu() {
 		return view.mainMenu();
 	}
-}
+
+	public void addItem(){
+		Item item = view.displayaddItem();
+		service.createItem(item);
+	}
+}  
