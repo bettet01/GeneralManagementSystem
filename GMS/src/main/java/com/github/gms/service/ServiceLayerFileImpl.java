@@ -45,7 +45,7 @@ public class ServiceLayerFileImpl implements ServiceLayer {
         for (Item item : collection) {
             if(itToRemove.equals(item.getName())) {
                 Item itemR = item;
-                depart.removeItem(itemR);
+                depart.removeItems(itemR);
             }
         }
     }

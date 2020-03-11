@@ -33,6 +33,10 @@ public class Department {
         this.name = name;
     }
     
+    public void removeItems(Item item) {
+        items.remove(item);
+    }
+    
 	public Collection<Item> getItems() {
 		return this.items.values();
 	}
