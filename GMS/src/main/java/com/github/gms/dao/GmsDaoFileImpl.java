@@ -23,14 +23,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+
 /**
  *
  * @author briannaschladweiler
  */
 public class GmsDaoFileImpl implements GmsDao {
-        
+
     ServiceLayer service;
-   
+
     public static void main(String[] args) {
         int count = 0;
         File file = new File("C:\\Users\\Ethan\\Documents\\Dev10\\GMS\\GMS\\resources");
@@ -63,15 +64,19 @@ public class GmsDaoFileImpl implements GmsDao {
         // ---------------------------------------------------
         //  [0]       [1]       [2]          [3]        [4]      
         String[] itemTokens = itemAsText.split(DELIMITER);
-
+        
         String name = itemTokens[0];
-
-        LocalDate expDate = LocalDate.parse(itemTokens[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         
         Item itemFromFile = new Item(name);
 
-        itemFromFile.setExpDate(expDate);
-        
+        if (itemTokens[1].equals("")) {
+            LocalDate expDate = null;
+            itemFromFile.setExpDate(expDate);
+        } else {
+            LocalDate expDate = LocalDate.parse(itemTokens[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            itemFromFile.setExpDate(expDate);
+        }
+
         itemFromFile.setItemCount(Integer.parseInt(itemTokens[2]));
 
         itemFromFile.setPpu(new BigDecimal(itemTokens[3]));
@@ -125,8 +130,6 @@ public class GmsDaoFileImpl implements GmsDao {
                 System.out.println("Hello");
             }
 
-            
-
         }
         return departmentMap;
     }
@@ -135,7 +138,11 @@ public class GmsDaoFileImpl implements GmsDao {
 
         String itemAsText = aItem.getName() + DELIMITER;
 
-        itemAsText += aItem.getExpDate().toString() + DELIMITER;
+        if (aItem.getExpDate() == null) {
+            itemAsText += "" + DELIMITER;
+        } else {
+            itemAsText += aItem.getExpDate().toString() + DELIMITER;
+        }
 
         itemAsText += aItem.getItemCount() + DELIMITER;
 
@@ -146,7 +153,7 @@ public class GmsDaoFileImpl implements GmsDao {
         return itemAsText;
     }
 
-        @Override
+    @Override
     public void writeLibrary(HashMap<String, Department> mapDepartment) throws GmsDaoException {
 
         PrintWriter out;
@@ -158,21 +165,20 @@ public class GmsDaoFileImpl implements GmsDao {
                 out = new PrintWriter(new FileWriter("./resources/" + k + ".txt"));
 
                 String itemAsText;
-                    for (Item j : mapDepartment.get(k).getItems()) {
-                            itemAsText = marshallItem(j);
-                            out.println(itemAsText);
-                            out.flush();
-                    }
-                    out.close();
-            }
-            catch (IOException e) {
+                for (Item j : mapDepartment.get(k).getItems()) {
+                    itemAsText = marshallItem(j);
+                    out.println(itemAsText);
+                    out.flush();
+                }
+                out.close();
+            } catch (IOException e) {
                 throw new GmsDaoException(
                         "Could not save item data.", e);
             }
 
         }
     }
-    
+
     public void addService(ServiceLayer service) {
         this.service = service;
     }
