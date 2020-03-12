@@ -91,13 +91,16 @@ public class UserIOConsoleImpl implements UserIO{
     public int readInt(String prompt, int min, int max){
         while(true) {
             System.out.print(prompt);
-            int answer = sc.nextInt();
-            sc.nextLine();
-            
-            if ((answer < max) && (answer > min)){
-                return answer;
-            } else {
+            try {
+                int answer = sc.nextInt();
+                sc.nextLine();
+                
+                if ((answer < max) && (answer > min)){
+                    return answer;
+                }
+            } catch (Exception e) {
                 System.out.println("Not a valid choice.");
+                sc.nextLine();
             }
         }
     }
