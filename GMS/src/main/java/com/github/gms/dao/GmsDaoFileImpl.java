@@ -111,7 +111,7 @@ public class GmsDaoFileImpl implements GmsDao {
 //
 //            scanner = new Scanner(
 //                    new BufferedReader(
-//                            new FileReader(ROSTER_FILE)));
+//                            new FileReader(file)));
 //        } catch (FileNotFoundException e) {
 //            throw new GmsDaoException(
 //                    "-_- Could not load library data into memory.", e);
