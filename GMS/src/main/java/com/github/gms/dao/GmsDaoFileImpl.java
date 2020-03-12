@@ -71,9 +71,11 @@ public class GmsDaoFileImpl implements GmsDao {
         String name = itemTokens[0];
 
         LocalDate expDate = LocalDate.parse(itemTokens[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
+        
         Item itemFromFile = new Item(name);
 
+        itemFromFile.setExpDate(expDate);
+        
         itemFromFile.setItemCount(Integer.parseInt(itemTokens[2]));
 
         itemFromFile.setPpu(new BigDecimal(itemTokens[3]));
