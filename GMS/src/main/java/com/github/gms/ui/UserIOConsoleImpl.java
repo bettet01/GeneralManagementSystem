@@ -133,10 +133,13 @@ public class UserIOConsoleImpl implements UserIO{
     public BigDecimal readBigDecimal(String prompt) {
         System.out.println(prompt);
         
-        String answer = sc.nextLine();
-        BigDecimal bAnswer = new BigDecimal(answer).setScale(2, RoundingMode.HALF_UP);
-        
-        return bAnswer;
+        while(true){
+            try {
+                return sc.nextBigDecimal().setScale(2, RoundingMode.HALF_UP);
+            } catch (Exception e) {
+                System.out.println("Not a valid input.");
+            }
+        }
     }
     
     @Override
