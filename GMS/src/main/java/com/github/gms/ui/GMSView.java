@@ -122,7 +122,7 @@ public class GMSView {
 	}
 
 	public String findItem(){
-		return io.readString("Enter item name: ");
+		return io.readString("Enter item name: ").toUpperCase();
 	}
 
 
