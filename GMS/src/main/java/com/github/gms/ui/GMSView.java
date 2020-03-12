@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import com.github.gms.dto.Department;
@@ -88,11 +89,33 @@ public class GMSView {
 		}
 	}
 
-	public void displayDepartments(HashMap<String, Department> departments){
-		Set<String> keys = departments.keySet();
-		for (String key : keys) {
+	public void displayDepartments(Set<String> departments){
+		for (String key : departments) {
 			io.print(key);
 		}
+
+	}
+
+	public Department selectDepartment(List<Object> list){
+		io.print("--- Select Department ---");
+		int count = 1;
+		for (Department department : list) {
+			io.print("\t"+count + ": " + department);
+			count++;
+		}
+
+		int x = io.readInt("Choice", 0, count+1);
+
+		return list.get(x-1);
+
+	}
+
+	public String findItem(){
+		return io.readString("Enter item name: ");
+	}
+
+
+	public int editSelection(int choice){
 
 	}
 	

@@ -44,19 +44,19 @@ public class GmsController {
 					addItem();
 					break;
 				case 2:
-                                        editItem();
+					editItem();
 					break;
 				case 3:
-                                        removeItem();
+					removeItem();
 					break;
 				case 4:
-                                        displayItem();
+					displayItem();
 					break;
 				case 5:
-                                        listAllDepartments();
+					listAllDepartments();
 					break;
 				case 6:
-                                        listItemsByDepartment();
+					listItemsByDepartment();
 					break;
 				case 7:
 					gameOn = false;
@@ -71,46 +71,48 @@ public class GmsController {
 		return view.mainMenu();
 	}
 
-	public void addItem(){
+	public void addItem() {
 		Item item = view.displayaddItem();
 		service.createItem(item);
 		view.displayItem(item);
 	}
-        
-        public void editItem() {
-            //String edit = view.user input here
-            //String choice = view. user input here
-            //String itemName = view. user input here
-            
-            //service.editItem(edit, choice, itemName);
-            //view.successedit
-        }
-        
-        public void removeItem() {
-            //String department = view. user input here
-            //String itemName = view. user input here
-            //service.remove(itemName, department
-        }
-        
-        public void displayItem() {
-            //String itemName = view. user input here
-            //String department = view. user input here
-            
-            Item newItem = service.displayItem(department, itemName);
-            //send to view to print out item getters
-        }
-        
-        public void listAllDepartments() {
-            Set<String> departments = service.listAllDepartments();
-            //send to view to print out set
-        }   
-        
-        public void listItemsByDepartment() {
-            
-            //String department = view. user input here
-            Department depart = service.listItemsByDepartment(department);
-            Collection<Item> listItems = depart.getItems();
-            
-            //send Collection to view to print items
-        }
-}  
+
+	public void editItem() {
+		// String edit = view.user input here
+		// String choice = view. user input here
+		// String itemName = view. user input here
+
+		// service.editItem(edit, choice, itemName);
+		// view.successedit
+	}
+
+	public void removeItem() {
+		// String department = view. user input here
+		// String itemName = view. user input here
+		// service.remove(itemName, department
+	}
+
+	public void displayItem() {
+		view.displayDepartments(service.listAllDepartments());
+		// String itemName = view. user input here
+		// String department = view. user input here
+
+		Item newItem = service.displayItem(department, itemName);
+		// send to view to print out item getters
+	}
+
+	public void listAllDepartments() {
+		Set<String> departments = service.listAllDepartments();
+		view.displayDepartments(departments);
+	}
+
+	public void listItemsByDepartment() {
+		Department selection = view.selectDepartment(service.getDepartmentList());
+		String name = selection.getName();
+		// String department = view. user input here
+		Department depart = service.listItemsByDepartment(name);
+		Collection<Item> listItems = depart.getItems();
+
+		view.displayDepartmentItems(listItems);
+	}
+}

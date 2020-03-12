@@ -30,5 +30,7 @@ public interface ServiceLayer {
     Department listItemsByDepartment(String department);
     
     void load() throws Exception;
+
+    public List<Object> getDepartmentList();
     
 }

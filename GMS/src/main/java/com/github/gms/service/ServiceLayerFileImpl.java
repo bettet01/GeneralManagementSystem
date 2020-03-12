@@ -12,7 +12,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -102,6 +104,11 @@ public class ServiceLayerFileImpl implements ServiceLayer {
     @Override
     public void load() throws Exception{
         mapDepartments = dao.loadLibrary();
+    }
+
+
+    public List<Object> getDepartmentList() {
+        return mapDepartments.values().stream().collect(Collectors.toList());
     }
 }
 
