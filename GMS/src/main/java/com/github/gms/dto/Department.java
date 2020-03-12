@@ -36,6 +36,10 @@ public class Department {
     public void removeItems(Item item) {
         items.remove(item.getName());
     }
+
+    public Item getItem(String name){
+        return items.get(name);
+    }
     
 	public Collection<Item> getItems() {
 		return this.items.values();

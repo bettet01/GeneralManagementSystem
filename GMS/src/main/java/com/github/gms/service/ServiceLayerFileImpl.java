@@ -29,7 +29,7 @@ public class ServiceLayerFileImpl implements ServiceLayer {
     }
 
     @Override
-    public void createItem(Item item) {
+    public Item createItem(Item item) {
 
         Department depAdd = mapDepartments.get(item.getDepartment());
         depAdd.addItem(item);
@@ -39,10 +39,12 @@ public class ServiceLayerFileImpl implements ServiceLayer {
             System.out.println("oops");
         }
 
+        return mapDepartments.get(item.getDepartment()).getItem(item.getName());
+
     }
 
     @Override
-    public void removeItem(String itToRemove, String department) {
+    public Item removeItem(String itToRemove, String department) {
 
         Department depart = mapDepartments.get(department);
         Collection<Item> collection = depart.getItems();
@@ -51,18 +53,22 @@ public class ServiceLayerFileImpl implements ServiceLayer {
             if (itToRemove.equals(item.getName())) {
                 Item itemR = item;
                 depart.removeItems(itemR);
+
+                try {
+                    dao.writeLibrary(mapDepartments);
+                } catch (Exception e) {
+                    System.out.println("oops");
+                }
+
+                return itemR;
             }
         }
 
-        try {
-            dao.writeLibrary(mapDepartments);
-        } catch (Exception e) {
-            System.out.println("oops");
-        }
+        return null;
     }
 
     @Override
-    public void editItem(String edit, int choice, String itemName) {
+    public Item editItem(String edit, int choice, String itemName) {
         Set<String> depKey = mapDepartments.keySet();
         for (String k : depKey) {
             for (Item j : mapDepartments.get(k).getItems()) {
@@ -80,15 +86,19 @@ public class ServiceLayerFileImpl implements ServiceLayer {
                             LocalDate ldEdit = LocalDate.parse(edit);
                             j.setExpDate(ldEdit);
                     }
+
+                    try {
+                        dao.writeLibrary(mapDepartments);
+                    } catch (Exception e) {
+                        System.out.println("oops");
+                    }
+
+                    return j;
                 }
             }
         }
 
-        try {
-            dao.writeLibrary(mapDepartments);
-        } catch (Exception e) {
-            System.out.println("oops");
-        }
+        return null;
     }
 
     @Override

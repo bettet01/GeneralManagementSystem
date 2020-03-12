@@ -100,6 +100,14 @@ public class GMSView {
 
 	}
 
+	public void displayEditSuccess(){
+		io.print("--- Item Editted Successfully ---");
+	}
+
+	public void displayEditFail(){
+		io.print("--- Could Not Add Item ---");
+	}
+
 	public Department selectDepartment(List<Department> list){
 		io.print("--- Select Department ---");
 		int count = 1;
@@ -141,6 +149,21 @@ public class GMSView {
 	public String editExpDate(){
 		LocalDate x = io.setLocalDate("Enter Exp Date: ");
 		return x.toString();
+	}
+
+
+	public void displayRemoveSuccess() {
+		io.print("--- Item Removed Successfully ---");
+	}
+
+
+	public void displayRemoveFail() {
+		io.print("--- Could not Remove Item --- ");
+	}
+
+
+	public void displayCouldNotLocate() {
+		io.print("--- Could not Locate Item ---");
 	}
 	
 }
