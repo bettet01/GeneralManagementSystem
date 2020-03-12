@@ -71,8 +71,13 @@ public class GmsController {
 
 	public void addItem() throws Exception {
 		Item item = view.displayaddItem(service.getDepartmentList());
-		service.createItem(item);
-		view.displayItem(item);
+		Item returnItem = service.createItem(item);
+		if(returnItem != null){
+			view.displayItem(item);
+		} else {
+			view.displayAddedFail();
+		}
+
 	}
 
 	public void editItem() {
@@ -87,14 +92,25 @@ public class GmsController {
 			item = view.editExpDate();
 		}
 
-		service.editItem(item, choice, itemName);
+		Item returnItem = service.editItem(item, choice, itemName);
+
+		if(returnItem != null){
+			view.displayEditSuccess();
+		} else {
+			view.displayEditFail();
+		}
 	}
 
 	public void removeItem() {
 		Department depart = view.selectDepartment(service.getDepartmentList());
 		String name = depart.getName();
 		String itemName = view.findItem();
-		service.removeItem(itemName, name);
+		Item returnItem = service.removeItem(itemName, name);
+		if(returnItem != null){
+			view.displayRemoveSuccess();
+		} else {
+			view.displayRemoveFail();
+		}
 	}
 
 	public void displayItem() {
@@ -103,7 +119,10 @@ public class GmsController {
 		String itemName = view.findItem();
 
 		Item newItem = service.displayItem(name, itemName);
-		view.displayItem(newItem);
+		if(newItem != null){
+			view.displayItem(newItem);
+		}
+		view.displayCouldNotLocate();
 	}
 
 	public void listAllDepartments() {

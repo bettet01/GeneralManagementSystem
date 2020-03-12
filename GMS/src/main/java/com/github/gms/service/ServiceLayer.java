@@ -17,11 +17,11 @@ import java.util.Set;
  */
 public interface ServiceLayer {
     
-    void createItem(Item item);
+    Item createItem(Item item);
     
-    void editItem(String edit, int choice, String itemName);
+    Item editItem(String edit, int choice, String itemName);
     
-    void removeItem(String itToRemove, String department);
+    Item removeItem(String itToRemove, String department);
     
     Item displayItem(String department, String itemName);
     
