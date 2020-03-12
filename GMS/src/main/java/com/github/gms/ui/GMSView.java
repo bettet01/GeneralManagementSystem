@@ -53,14 +53,8 @@ public class GMSView {
 		BigDecimal ppu = io.readBigDecimal("Price per unit: ");
 		Department departchoice = selectDepartment(departList);
 
-		Item item = new Item(name, exp, count, ppu, departchoice.getName();
+		Item item = new Item(name, exp, count, ppu, departchoice.getName());
 		return item;
-	}
-
-	public void displayremoveItem(){
-		io.print("--- Remove Item ---");
-		io.readString("Department Name: ");
-		io.readString("Item Name: ");
 	}
 
 	public String displayFindItem(){
@@ -102,8 +96,8 @@ public class GMSView {
 			io.print("\t"+count + ": " + department.getName());
 			count++;
 		}
-
-		int x = io.readInt("Choice", 0, count+1);
+		io.print("");
+		int x = io.readInt("Choice: ", 0, count+1);
 
 		return list.get(x-1);
 
@@ -125,6 +119,7 @@ public class GMSView {
 
 	public String editPrice(){
 		BigDecimal x = io.readBigDecimal("Enter New Price: ");
+		x.setScale(2);
 		return x.toString();
 	}
 
