@@ -74,26 +74,32 @@ public class UserIOConsoleImpl implements UserIO{
     @Override
     public int readInt(String prompt){
         
-        System.out.println(prompt);
-        String sAnswer = sc.nextLine();
-        int answer = Integer.parseInt(sAnswer);
+        while(true){
+            try {
+                System.out.print(prompt);
+                int x = sc.nextInt();
+                sc.nextLine();
+                return x;
+            } catch (Exception e) {
+                System.out.println("Not a valid input.");
+            }
+        }
         
-        return answer;
     }
     
     @Override
     public int readInt(String prompt, int min, int max){
-        
-        String sAnswer = sc.nextLine();
-        int answer = Integer.parseInt(sAnswer);
-        boolean valid = false;
-        while(!valid) {
+        while(true) {
+            System.out.print(prompt);
+            int answer = sc.nextInt();
+            sc.nextLine();
             
             if ((answer < max) && (answer > min)){
-                valid = true;
+                return answer;
+            } else {
+                System.out.println("Not a valid choice.");
             }
         }
-        return answer;
     }
     
     @Override
@@ -122,7 +128,7 @@ public class UserIOConsoleImpl implements UserIO{
     
     @Override
     public String readString(String prompt){
-        System.out.println(prompt);
+        System.out.print(prompt);
         String answer = sc.nextLine();
         
         return answer;
@@ -132,10 +138,13 @@ public class UserIOConsoleImpl implements UserIO{
     public BigDecimal readBigDecimal(String prompt) {
         System.out.println(prompt);
         
-        String answer = sc.nextLine();
-        BigDecimal bAnswer = new BigDecimal(answer).setScale(2, RoundingMode.HALF_UP);
-        
-        return bAnswer;
+        while(true){
+            try {
+                return sc.nextBigDecimal().setScale(2, RoundingMode.HALF_UP);
+            } catch (Exception e) {
+                System.out.println("Not a valid input.");
+            }
+        }
     }
     
     @Override

@@ -103,7 +103,6 @@ public class GMSView {
 			io.print("\t"+count + ": " + department.getName());
 			count++;
 		}
-		io.print("");
 		int x = io.readInt("Choice: ", 0, count+1);
 
 		return list.get(x-1);
