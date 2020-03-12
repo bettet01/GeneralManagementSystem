@@ -76,12 +76,18 @@ public class GmsController {
 	}
 
 	public void editItem() {
-		// String edit = view.user input here
-		// String choice = view. user input here
-		// String itemName = view. user input here
+		String item;
+		String itemName = view.findItem();
+		int choice = view.editSelection();
+		if(choice == 1){
+			item = view.editPrice();
+		} else if(choice == 2){
+			item = view.editCount();
+		} else{
+			item = view.editExpDate();
+		}
 
-		// service.editItem(edit, choice, itemName);
-		// view.successedit
+		service.editItem(item, choice, itemName);
 	}
 
 	public void removeItem() {

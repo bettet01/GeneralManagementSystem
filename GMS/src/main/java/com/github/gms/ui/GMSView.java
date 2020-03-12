@@ -115,8 +115,27 @@ public class GMSView {
 	}
 
 
-	public int editSelection(int choice){
+	public int editSelection(){
+		io.print("1: Price Per Unit");
+		io.print("2. Inventory Count");
+		io.print("3. Exp Date");
 
+		return io.readInt("Choice: ", 0, 4);
+	}
+
+	public String editPrice(){
+		BigDecimal x = io.readBigDecimal("Enter New Price: ");
+		return x.toString();
+	}
+
+	public String editCount(){
+		int x = io.readInt("Enter New Count: ");
+		return Integer.toString(x);
+	}
+
+	public String editExpDate(){
+		LocalDate x = io.setLocalDate("Enter Exp Date: ");
+		return x.toString();
 	}
 	
 }
