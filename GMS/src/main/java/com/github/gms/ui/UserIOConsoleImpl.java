@@ -74,20 +74,25 @@ public class UserIOConsoleImpl implements UserIO{
     @Override
     public int readInt(String prompt){
         
-        System.out.println(prompt);
-        String sAnswer = sc.nextLine();
-        int answer = Integer.parseInt(sAnswer);
+        while(true){
+            try {
+                System.out.print(prompt);
+                int x = sc.nextInt();
+                sc.nextLine();
+                return x;
+            } catch (Exception e) {
+                System.out.println("Not a valid input.");
+            }
+        }
         
-        return answer;
     }
     
     @Override
     public int readInt(String prompt, int min, int max){
-        int answer;
         while(true) {
             System.out.print(prompt);
-            String sAnswer = sc.nextLine();
-            answer = Integer.parseInt(sAnswer);
+            int answer = sc.nextInt();
+            sc.nextLine();
             
             if ((answer < max) && (answer > min)){
                 return answer;
@@ -123,7 +128,7 @@ public class UserIOConsoleImpl implements UserIO{
     
     @Override
     public String readString(String prompt){
-        System.out.println(prompt);
+        System.out.print(prompt);
         String answer = sc.nextLine();
         
         return answer;
