@@ -7,7 +7,6 @@ package com.github.gms.dao;
 
 import com.github.gms.dto.Department;
 import com.github.gms.dto.Item;
-import com.sun.tools.javac.jvm.Items;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -112,7 +111,7 @@ public class GmsDaoFileImpl implements GmsDao {
 //
 //            scanner = new Scanner(
 //                    new BufferedReader(
-//                            new FileReader(ROSTER_FILE)));
+//                            new FileReader(file)));
 //        } catch (FileNotFoundException e) {
 //            throw new GmsDaoException(
 //                    "-_- Could not load library data into memory.", e);
