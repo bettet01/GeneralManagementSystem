@@ -6,13 +6,11 @@
 package com.github.gms.controller;
 
 import com.github.gms.dto.Department;
-import javax.swing.text.View;
 
 import com.github.gms.dto.Item;
 import com.github.gms.service.ServiceLayer;
 import com.github.gms.ui.GMSView;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 /**
