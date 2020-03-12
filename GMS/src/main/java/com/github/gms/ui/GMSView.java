@@ -45,23 +45,16 @@ public class GMSView {
 	}
 
 
-	public Item displayaddItem(){
+	public Item displayaddItem(List<Department> departList){
 		io.print("--- Add Item ---");
 		String name = io.readString("Name of Item: ");
 		LocalDate exp = io.setLocalDate("Experation Date (If Applicable): ");
 		int count = io.readInt("Number of Items in inventory: ");
 		BigDecimal ppu = io.readBigDecimal("Price per unit: ");
-		String department = io.readString("Department Name: ");
-		//TODO: add department list
+		Department departchoice = selectDepartment(departList);
 
-		Item item = new Item(name, exp, count, ppu, department);
+		Item item = new Item(name, exp, count, ppu, departchoice.getName());
 		return item;
-	}
-
-	public void displayremoveItem(){
-		io.print("--- Remove Item ---");
-		io.readString("Department Name: ");
-		io.readString("Item Name: ");
 	}
 
 	public String displayFindItem(){
@@ -103,8 +96,8 @@ public class GMSView {
 			io.print("\t"+count + ": " + department.getName());
 			count++;
 		}
-
-		int x = io.readInt("Choice", 0, count+1);
+		io.print("");
+		int x = io.readInt("Choice: ", 0, count+1);
 
 		return list.get(x-1);
 
@@ -116,8 +109,9 @@ public class GMSView {
 
 
 	public int editSelection(){
-		io.print("1: Price Per Unit");
-		io.print("2. Inventory Count");
+		io.print("--- Select Edit ---");
+		io.print("1: Inventory Count");
+		io.print("2. Price Per Unit");
 		io.print("3. Exp Date");
 
 		return io.readInt("Choice: ", 0, 4);
@@ -125,6 +119,7 @@ public class GMSView {
 
 	public String editPrice(){
 		BigDecimal x = io.readBigDecimal("Enter New Price: ");
+		x.setScale(2);
 		return x.toString();
 	}
 

@@ -70,7 +70,7 @@ public class GmsController {
 	}
 
 	public void addItem() {
-		Item item = view.displayaddItem();
+		Item item = view.displayaddItem(service.getDepartmentList());
 		service.createItem(item);
 		view.displayItem(item);
 	}
@@ -80,9 +80,9 @@ public class GmsController {
 		String itemName = view.findItem();
 		int choice = view.editSelection();
 		if(choice == 1){
-			item = view.editPrice();
-		} else if(choice == 2){
 			item = view.editCount();
+		} else if(choice == 2){
+			item = view.editPrice();
 		} else{
 			item = view.editExpDate();
 		}
