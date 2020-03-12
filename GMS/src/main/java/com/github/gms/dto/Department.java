@@ -34,7 +34,7 @@ public class Department {
     }
     
     public void removeItems(Item item) {
-        items.remove(item.getName());
+        items.remove(item.getName().toUpperCase());
     }
 
     public Item getItem(String name){

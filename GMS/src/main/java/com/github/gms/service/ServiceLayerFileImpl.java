@@ -50,9 +50,8 @@ public class ServiceLayerFileImpl implements ServiceLayer {
         Collection<Item> collection = depart.getItems();
 
         for (Item item : collection) {
-            if (itToRemove.toUpperCase().equals(item.getName().toUpperCase())) {
-                Item itemR = item;
-                depart.removeItems(itemR);
+            if (itToRemove.equals(item.getName().toUpperCase())) {
+                depart.removeItems(item);
 
                 try {
                     dao.writeLibrary(mapDepartments);
@@ -60,7 +59,7 @@ public class ServiceLayerFileImpl implements ServiceLayer {
                     System.out.println("oops");
                 }
 
-                return itemR;
+                return item;
             }
         }
 
