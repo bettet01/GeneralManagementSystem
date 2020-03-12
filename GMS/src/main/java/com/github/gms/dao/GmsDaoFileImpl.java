@@ -8,7 +8,6 @@ package com.github.gms.dao;
 import com.github.gms.dto.Department;
 import com.github.gms.dto.Item;
 import com.github.gms.service.ServiceLayer;
-import com.github.gms.service.ServiceLayerFileImpl;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,15 +18,11 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.stream.Collectors;
-
 /**
  *
  * @author briannaschladweiler
@@ -59,10 +54,6 @@ public class GmsDaoFileImpl implements GmsDao {
 
     public static final String ROSTER_FILE = "roster.txt";
     public static final String DELIMITER = "::";
-
-    private Map<String, Item> itemMap = new HashMap<>();
-
-    private Map<String, Item> items = new HashMap<>();
 
     private Item unmarshallItem(String itemAsText) {
         // ___________________________________________________
