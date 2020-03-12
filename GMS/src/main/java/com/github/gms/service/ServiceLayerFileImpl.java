@@ -29,38 +29,44 @@ public class ServiceLayerFileImpl implements ServiceLayer {
     }
 
     @Override
-    public void createItem(Item item){
-       
+    public void createItem(Item item) {
+
         Department depAdd = mapDepartments.get(item.getDepartment());
         depAdd.addItem(item);
         try {
             dao.writeLibrary(mapDepartments);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("oops");
         }
-        
+
     }
-    
+
     @Override
     public void removeItem(String itToRemove, String department) {
-        
+
         Department depart = mapDepartments.get(department);
         Collection<Item> collection = depart.getItems();
-                
+
         for (Item item : collection) {
-            if(itToRemove.equals(item.getName())) {
+            if (itToRemove.equals(item.getName())) {
                 Item itemR = item;
                 depart.removeItems(itemR);
             }
+        }
+
+        try {
+            dao.writeLibrary(mapDepartments);
+        } catch (Exception e) {
+            System.out.println("oops");
         }
     }
 
     @Override
     public void editItem(String edit, int choice, String itemName) {
         Set<String> depKey = mapDepartments.keySet();
-            for (String k : depKey) {
-                for (Item j : mapDepartments.get(k).getItems()) {
+        for (String k : depKey) {
+            for (Item j : mapDepartments.get(k).getItems()) {
+                if (j.getName().equals(itemName)) {
                     switch (choice) {
                         case 1:
                             int iEdit = Integer.parseInt(edit);
@@ -78,13 +84,20 @@ public class ServiceLayerFileImpl implements ServiceLayer {
             }
         }
 
+        try {
+            dao.writeLibrary(mapDepartments);
+        } catch (Exception e) {
+            System.out.println("oops");
+        }
+    }
+
     @Override
     public Item displayItem(String department, String itemName) {
         Department depart = mapDepartments.get(department);
         Collection<Item> collection = depart.getItems();
-                
+
         for (Item item : collection) {
-            if(itemName.equals(item.getName())) {
+            if (itemName.equals(item.getName())) {
                 Item itemR = item;
                 return itemR;
             }
@@ -93,37 +106,35 @@ public class ServiceLayerFileImpl implements ServiceLayer {
     }
 
     @Override
-    public Set<String> listAllDepartments() {   
+    public Set<String> listAllDepartments() {
         Set<String> keys = mapDepartments.keySet();
-        
+
         return keys;
     }
 
     @Override
     public Department listItemsByDepartment(String department) {
         Department depart = mapDepartments.get(department);
-        
-        return depart; 
-    } 
-    
+
+        return depart;
+    }
+
     @Override
-    public void load() throws Exception{
+    public void load() throws Exception {
         mapDepartments = dao.loadLibrary();
     }
-    
+
     public void writeLibrary() throws Exception {
         dao.writeLibrary(mapDepartments);
     }
-
 
     public List<Department> getDepartmentList() {
         List<Department> departList = new ArrayList<Department>(mapDepartments.values());
         return departList;
     }
-    
-    public HashMap<String,Department> getMap() {
+
+    public HashMap<String, Department> getMap() {
         return mapDepartments;
     }
-   
-}
 
+}
