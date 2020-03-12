@@ -33,7 +33,12 @@ public class ServiceLayerFileImpl implements ServiceLayer {
        
         Department depAdd = mapDepartments.get(item.getDepartment());
         depAdd.addItem(item);
-        
+        try {
+            dao.writeLibrary(mapDepartments);
+        }
+        catch(Exception e) {
+            System.out.println("oops");
+        }
         
     }
     
@@ -105,11 +110,20 @@ public class ServiceLayerFileImpl implements ServiceLayer {
     public void load() throws Exception{
         mapDepartments = dao.loadLibrary();
     }
+    
+    public void writeLibrary() throws Exception {
+        dao.writeLibrary(mapDepartments);
+    }
 
 
     public List<Department> getDepartmentList() {
         List<Department> departList = new ArrayList<Department>(mapDepartments.values());
         return departList;
     }
+    
+    public HashMap<String,Department> getMap() {
+        return mapDepartments;
+    }
+   
 }
 

@@ -14,7 +14,7 @@ import com.github.gms.ui.UserIOConsoleImpl;
  *
  */
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         UserIO io = new UserIOConsoleImpl();
         GMSView view = new GMSView(io);
         GmsDao dao = new GmsDaoFileImpl();

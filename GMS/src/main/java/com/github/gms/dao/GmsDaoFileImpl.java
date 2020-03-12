@@ -7,6 +7,8 @@ package com.github.gms.dao;
 
 import com.github.gms.dto.Department;
 import com.github.gms.dto.Item;
+import com.github.gms.service.ServiceLayer;
+import com.github.gms.service.ServiceLayerFileImpl;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -30,7 +33,9 @@ import java.util.stream.Collectors;
  * @author briannaschladweiler
  */
 public class GmsDaoFileImpl implements GmsDao {
-
+        
+    ServiceLayer service;
+   
     public static void main(String[] args) {
         int count = 0;
         File file = new File("C:\\Users\\Ethan\\Documents\\Dev10\\GMS\\GMS\\resources");
@@ -150,29 +155,34 @@ public class GmsDaoFileImpl implements GmsDao {
         return itemAsText;
     }
 
-    private void writeLibrary() throws GmsDaoException {
+        @Override
+    public void writeLibrary(HashMap<String, Department> mapDepartment) throws GmsDaoException {
 
         PrintWriter out;
 
-        try {
-            out = new PrintWriter(new FileWriter(ROSTER_FILE));
-        } catch (IOException e) {
-            throw new GmsDaoException(
-                    "Could not save item data.", e);
+        Set<String> depKey = mapDepartment.keySet();
+
+        for (String k : depKey) {
+            try {
+                out = new PrintWriter(new FileWriter("./resources/" + k + ".txt"));
+
+                String itemAsText;
+                    for (Item j : mapDepartment.get(k).getItems()) {
+                            itemAsText = marshallItem(j);
+                            out.println(itemAsText);
+                            out.flush();
+                    }
+                    out.close();
+            }
+            catch (IOException e) {
+                throw new GmsDaoException(
+                        "Could not save item data.", e);
+            }
+
         }
-
-//        String itemAsText;
-//        List<Item> itemList = this.getAllItems();
-//        for (Item currentItem : itemList) {
-//
-//            itemAsText = marshallItem(currentItem);
-//
-//            out.println(itemAsText);
-//
-//            out.flush();
-//        }
-//
-//        out.close();
     }
-
+    
+    public void addService(ServiceLayer service) {
+        this.service = service;
+    }
 }

@@ -6,6 +6,7 @@
 package com.github.gms.dao;
 
 import com.github.gms.dto.Department;
+import com.github.gms.service.ServiceLayer;
 import java.util.HashMap;
 
 /**
@@ -15,4 +16,8 @@ import java.util.HashMap;
 public interface GmsDao {
     
     HashMap<String, Department> loadLibrary() throws GmsDaoException;
+    
+    void writeLibrary(HashMap<String, Department> mapDepartment) throws GmsDaoException;
+
+    public void addService(ServiceLayer service);
 }

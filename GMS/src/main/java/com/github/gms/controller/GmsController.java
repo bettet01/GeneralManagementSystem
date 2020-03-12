@@ -26,7 +26,7 @@ public class GmsController {
 		this.service = service;
 	}
 
-	public void execute() {
+	public void execute() throws Exception {
 		boolean gameOn = true;
 
 		try {
@@ -69,7 +69,7 @@ public class GmsController {
 		return view.mainMenu();
 	}
 
-	public void addItem() {
+	public void addItem() throws Exception {
 		Item item = view.displayaddItem(service.getDepartmentList());
 		service.createItem(item);
 		view.displayItem(item);

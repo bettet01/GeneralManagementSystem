@@ -7,6 +7,7 @@ package com.github.gms.service;
 
 import com.github.gms.dto.Department;
 import com.github.gms.dto.Item;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -31,5 +32,9 @@ public interface ServiceLayer {
     void load() throws Exception;
 
     public List<Department> getDepartmentList();
+    
+    void writeLibrary() throws Exception;
+
+    public HashMap<String, Department> getMap();
     
 }
