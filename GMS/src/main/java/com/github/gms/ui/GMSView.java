@@ -57,12 +57,6 @@ public class GMSView {
 		return item;
 	}
 
-	public void displayremoveItem(){
-		io.print("--- Remove Item ---");
-		io.readString("Department Name: ");
-		io.readString("Item Name: ");
-	}
-
 	public String displayFindItem(){
 		io.print("--- Find Item ---");
 		String name = io.readString("Enter Name of Item: ");
@@ -102,8 +96,8 @@ public class GMSView {
 			io.print("\t"+count + ": " + department.getName());
 			count++;
 		}
-
-		int x = io.readInt("Choice", 0, count+1);
+		io.print("");
+		int x = io.readInt("Choice: ", 0, count+1);
 
 		return list.get(x-1);
 
@@ -125,6 +119,7 @@ public class GMSView {
 
 	public String editPrice(){
 		BigDecimal x = io.readBigDecimal("Enter New Price: ");
+		x.setScale(2);
 		return x.toString();
 	}
 
