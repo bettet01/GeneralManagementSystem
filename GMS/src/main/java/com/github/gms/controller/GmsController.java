@@ -70,7 +70,7 @@ public class GmsController {
 	}
 
 	public void addItem() {
-		Item item = view.displayaddItem();
+		Item item = view.displayaddItem(service.getDepartmentList());
 		service.createItem(item);
 		view.displayItem(item);
 	}
