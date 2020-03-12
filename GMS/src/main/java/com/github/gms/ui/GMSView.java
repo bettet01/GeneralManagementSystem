@@ -53,7 +53,7 @@ public class GMSView {
 		BigDecimal ppu = io.readBigDecimal("Price per unit: ");
 		Department departchoice = selectDepartment(departList);
 
-		Item item = new Item(name, exp, count, ppu, departchoice.getName();
+		Item item = new Item(name, exp, count, ppu, departchoice.getName());
 		return item;
 	}
 
