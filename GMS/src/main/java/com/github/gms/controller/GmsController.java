@@ -121,8 +121,10 @@ public class GmsController {
 		Item newItem = service.displayItem(name, itemName);
 		if(newItem != null){
 			view.displayItem(newItem);
+		} else {
+			view.displayCouldNotLocate();
 		}
-		view.displayCouldNotLocate();
+
 	}
 
 	public void listAllDepartments() {

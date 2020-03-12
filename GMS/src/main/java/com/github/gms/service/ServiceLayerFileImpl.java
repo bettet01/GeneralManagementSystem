@@ -50,7 +50,7 @@ public class ServiceLayerFileImpl implements ServiceLayer {
         Collection<Item> collection = depart.getItems();
 
         for (Item item : collection) {
-            if (itToRemove.equals(item.getName().toUpperCase())) {
+            if (itToRemove.toUpperCase().equals(item.getName().toUpperCase())) {
                 Item itemR = item;
                 depart.removeItems(itemR);
 
