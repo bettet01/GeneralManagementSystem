@@ -52,20 +52,20 @@ public class ServiceLayerFileImpl implements ServiceLayer {
     }
 
     @Override
-    public void editItem(String edit, String choice, String itemName) {
+    public void editItem(String edit, int choice, String itemName) {
         Set<String> depKey = mapDepartments.keySet();
             for (String k : depKey) {
                 for (Item j : mapDepartments.get(k).getItems()) {
                     switch (choice) {
-                        case "1":
+                        case 1:
                             int iEdit = Integer.parseInt(edit);
                             j.setItemCount(iEdit);
                             break;
-                        case "2":
+                        case 2:
                             BigDecimal bdEdit = new BigDecimal(edit);
                             j.setPpu(bdEdit);
                             break;
-                        case "3":
+                        case 3:
                             LocalDate ldEdit = LocalDate.parse(edit);
                             j.setExpDate(ldEdit);
                     }
