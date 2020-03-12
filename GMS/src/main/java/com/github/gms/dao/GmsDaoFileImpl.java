@@ -7,7 +7,6 @@ package com.github.gms.dao;
 
 import com.github.gms.dto.Department;
 import com.github.gms.dto.Item;
-import com.sun.tools.javac.jvm.Items;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -90,7 +89,7 @@ public class GmsDaoFileImpl implements GmsDao {
         Scanner scanner;
 
         int count = 0;
-        File file = new File("C:\\Users\\Ethan\\Documents\\Dev10\\GMS\\GMS\\resources");
+        File file = new File("C:\\Users\\Jake\\Documents\\GroupProjectDepartmentStore\\GeneralManagementSystem\\GMS\\resources");
         String[] pathnames = file.list();
         String[] departments = new String[pathnames.length];
         for (String pathname : pathnames) {
