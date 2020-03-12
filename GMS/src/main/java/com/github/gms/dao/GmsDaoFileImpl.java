@@ -89,6 +89,7 @@ public class GmsDaoFileImpl implements GmsDao {
         Scanner scanner;
 
         int count = 0;
+
         File file = new File("./resources");
 
         String[] pathnames = file.list();
