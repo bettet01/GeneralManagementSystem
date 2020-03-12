@@ -34,7 +34,7 @@ public class Department {
     }
     
     public void removeItems(Item item) {
-        items.remove(item);
+        items.remove(item.getName());
     }
     
 	public Collection<Item> getItems() {

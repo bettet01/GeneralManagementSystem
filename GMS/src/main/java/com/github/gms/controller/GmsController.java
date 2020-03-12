@@ -5,11 +5,13 @@
  */
 package com.github.gms.controller;
 
-import javax.swing.text.View;
+import com.github.gms.dto.Department;
 
 import com.github.gms.dto.Item;
 import com.github.gms.service.ServiceLayer;
 import com.github.gms.ui.GMSView;
+import java.util.Collection;
+import java.util.Set;
 
 /**
  *
@@ -40,19 +42,19 @@ public class GmsController {
 					addItem();
 					break;
 				case 2:
-
+					editItem();
 					break;
 				case 3:
-
+					displayItem();
 					break;
 				case 4:
-
+					listAllDepartments();
 					break;
 				case 5:
-
+					listItemsByDepartment();
 					break;
 				case 6:
-
+					removeItem();
 					break;
 				case 7:
 					gameOn = false;
@@ -67,10 +69,49 @@ public class GmsController {
 		return view.mainMenu();
 	}
 
-	public void addItem(){
+	public void addItem() {
 		Item item = view.displayaddItem();
 		service.createItem(item);
 		view.displayItem(item);
 	}
-	
-}  
+
+	public void editItem() {
+		// String edit = view.user input here
+		// String choice = view. user input here
+		// String itemName = view. user input here
+
+		// service.editItem(edit, choice, itemName);
+		// view.successedit
+	}
+
+	public void removeItem() {
+		Department depart = view.selectDepartment(service.getDepartmentList());
+		String name = depart.getName();
+		String itemName = view.findItem();
+		service.removeItem(itemName, name);
+	}
+
+	public void displayItem() {
+		Department depart = view.selectDepartment(service.getDepartmentList());
+		String name = depart.getName();
+		String itemName = view.findItem();
+
+		Item newItem = service.displayItem(name, itemName);
+		view.displayItem(newItem);
+	}
+
+	public void listAllDepartments() {
+		Set<String> departments = service.listAllDepartments();
+		view.displayDepartments(departments);
+	}
+
+	public void listItemsByDepartment() {
+		Department selection = view.selectDepartment(service.getDepartmentList());
+		String name = selection.getName();
+		// String department = view. user input here
+		Department depart = service.listItemsByDepartment(name);
+		Collection<Item> listItems = depart.getItems();
+
+		view.displayDepartmentItems(listItems);
+	}
+}

@@ -34,7 +34,7 @@ public class GmsDaoFileImpl implements GmsDao {
 
     public static void main(String[] args) {
         int count = 0;
-        File file = new File("/Users/briannaschladweiler/Documents/GeneralManagementSystem/GMS/resources");
+        File file = new File("C:\\Users\\Ethan\\Documents\\Dev10\\GMS\\GMS\\resources");
         String[] pathnames = file.list();
         String[] departments = new String[pathnames.length];
         for (String pathname : pathnames) {
@@ -91,6 +91,7 @@ public class GmsDaoFileImpl implements GmsDao {
 
         int count = 0;
         File file = new File("./resources");
+
         String[] pathnames = file.list();
         String[] departments = new String[pathnames.length];
         for (String pathname : pathnames) {

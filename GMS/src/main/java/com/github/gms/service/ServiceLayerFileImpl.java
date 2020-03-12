@@ -10,9 +10,10 @@ import com.github.gms.dto.Department;
 import com.github.gms.dto.Item;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -87,12 +88,10 @@ public class ServiceLayerFileImpl implements ServiceLayer {
     }
 
     @Override
-    public void listAllDepartments() {
-        
+    public Set<String> listAllDepartments() {   
         Set<String> keys = mapDepartments.keySet();
-        for (String k : keys) {
-            System.out.println(keys);
-        }
+        
+        return keys;
     }
 
     @Override
@@ -105,6 +104,12 @@ public class ServiceLayerFileImpl implements ServiceLayer {
     @Override
     public void load() throws Exception{
         mapDepartments = dao.loadLibrary();
+    }
+
+
+    public List<Department> getDepartmentList() {
+        List<Department> departList = new ArrayList<Department>(mapDepartments.values());
+        return departList;
     }
 }
 

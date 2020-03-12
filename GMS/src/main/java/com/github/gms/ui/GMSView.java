@@ -3,7 +3,7 @@ package com.github.gms.ui;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import com.github.gms.dto.Department;
@@ -88,11 +88,34 @@ public class GMSView {
 		}
 	}
 
-	public void displayDepartments(HashMap<String, Department> departments){
-		Set<String> keys = departments.keySet();
-		for (String key : keys) {
-			io.print(key);
+	public void displayDepartments(Set<String> departments){
+		io.print("--- Departments --- ");
+		for (String key : departments) {
+			io.print("\t" + key);
 		}
+
+	}
+
+	public Department selectDepartment(List<Department> list){
+		io.print("--- Select Department ---");
+		int count = 1;
+		for (Department department : list) {
+			io.print("\t"+count + ": " + department.getName());
+			count++;
+		}
+
+		int x = io.readInt("Choice", 0, count+1);
+
+		return list.get(x-1);
+
+	}
+
+	public String findItem(){
+		return io.readString("Enter item name: ");
+	}
+
+
+	public int editSelection(int choice){
 
 	}
 	
