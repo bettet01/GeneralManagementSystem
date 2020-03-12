@@ -90,17 +90,18 @@ public class GMSView {
 	}
 
 	public void displayDepartments(Set<String> departments){
+		io.print("--- Departments --- ");
 		for (String key : departments) {
-			io.print(key);
+			io.print("\t" + key);
 		}
 
 	}
 
-	public Department selectDepartment(List<Object> list){
+	public Department selectDepartment(List<Department> list){
 		io.print("--- Select Department ---");
 		int count = 1;
 		for (Department department : list) {
-			io.print("\t"+count + ": " + department);
+			io.print("\t"+count + ": " + department.getName());
 			count++;
 		}
 

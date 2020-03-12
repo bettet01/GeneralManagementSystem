@@ -47,16 +47,16 @@ public class GmsController {
 					editItem();
 					break;
 				case 3:
-					removeItem();
-					break;
-				case 4:
 					displayItem();
 					break;
-				case 5:
+				case 4:
 					listAllDepartments();
 					break;
-				case 6:
+				case 5:
 					listItemsByDepartment();
+					break;
+				case 6:
+					removeItem();
 					break;
 				case 7:
 					gameOn = false;
@@ -87,18 +87,19 @@ public class GmsController {
 	}
 
 	public void removeItem() {
-		// String department = view. user input here
-		// String itemName = view. user input here
-		// service.remove(itemName, department
+		Department depart = view.selectDepartment(service.getDepartmentList());
+		String name = depart.getName();
+		String itemName = view.findItem();
+		service.removeItem(itemName, name);
 	}
 
 	public void displayItem() {
-		view.displayDepartments(service.listAllDepartments());
-		// String itemName = view. user input here
-		// String department = view. user input here
+		Department depart = view.selectDepartment(service.getDepartmentList());
+		String name = depart.getName();
+		String itemName = view.findItem();
 
-		Item newItem = service.displayItem(department, itemName);
-		// send to view to print out item getters
+		Item newItem = service.displayItem(name, itemName);
+		view.displayItem(newItem);
 	}
 
 	public void listAllDepartments() {

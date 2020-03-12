@@ -31,6 +31,6 @@ public interface ServiceLayer {
     
     void load() throws Exception;
 
-    public List<Object> getDepartmentList();
+    public List<Department> getDepartmentList();
     
 }
