@@ -18,7 +18,7 @@ public interface ServiceLayer {
     
     void createItem(Item item);
     
-    void editItem(String edit, String choice, String itemName);
+    void editItem(String edit, int choice, String itemName);
     
     void removeItem(String itToRemove, String department);
     
