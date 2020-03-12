@@ -46,7 +46,7 @@ public class Department {
 	}
 
 	public void addItem(Item item){
-		items.put(item.getName(), item);
+		items.put(item.getName().toUpperCase(), item);
 	}
 
 }

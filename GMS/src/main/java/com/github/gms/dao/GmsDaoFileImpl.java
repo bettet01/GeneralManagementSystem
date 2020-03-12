@@ -32,27 +32,6 @@ public class GmsDaoFileImpl implements GmsDao {
 
     ServiceLayer service;
 
-    public static void main(String[] args) {
-        int count = 0;
-        File file = new File("C:\\Users\\Ethan\\Documents\\Dev10\\GMS\\GMS\\resources");
-        String[] pathnames = file.list();
-        String[] departments = new String[pathnames.length];
-        for (String pathname : pathnames) {
-            String result = pathname.substring(0, pathname.length() - 4);
-            departments[count] = result;
-            count++;
-        }
-
-        Map<String, Department> departmentMap = new HashMap<>();
-        for (String department : departments) {
-            Department newDepartment = new Department(department);
-            departmentMap.put(department, newDepartment);
-        }
-        System.out.println(Arrays.toString(departments));
-
-        //return departmentMap;
-    }
-
     public static final String ROSTER_FILE = "roster.txt";
     public static final String DELIMITER = "::";
 

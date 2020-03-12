@@ -50,7 +50,7 @@ public class ServiceLayerFileImpl implements ServiceLayer {
         Collection<Item> collection = depart.getItems();
 
         for (Item item : collection) {
-            if (itToRemove.equals(item.getName())) {
+            if (itToRemove.equals(item.getName().toUpperCase())) {
                 Item itemR = item;
                 depart.removeItems(itemR);
 
@@ -72,7 +72,7 @@ public class ServiceLayerFileImpl implements ServiceLayer {
         Set<String> depKey = mapDepartments.keySet();
         for (String k : depKey) {
             for (Item j : mapDepartments.get(k).getItems()) {
-                if (j.getName().equals(itemName)) {
+                if (j.getName().toUpperCase().equals(itemName)) {
                     switch (choice) {
                         case 1:
                             int iEdit = Integer.parseInt(edit);
@@ -107,7 +107,7 @@ public class ServiceLayerFileImpl implements ServiceLayer {
         Collection<Item> collection = depart.getItems();
 
         for (Item item : collection) {
-            if (itemName.equals(item.getName())) {
+            if (item.getName().toUpperCase().equals(itemName.toUpperCase())) {
                 Item itemR = item;
                 return itemR;
             }
