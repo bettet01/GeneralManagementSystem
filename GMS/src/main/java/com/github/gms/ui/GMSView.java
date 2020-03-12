@@ -46,8 +46,15 @@ public class GMSView {
 
 
 	public Item displayaddItem(List<Department> departList){
+		String name;
 		io.print("--- Add Item ---");
-		String name = io.readString("Name of Item: ");
+		do {
+			name = io.readString("Name of Item: ");
+			if(name.contains(":")){
+				io.print("Cannot use colons in item names. ");
+			}
+		} while (name.contains(":"));
+
 		LocalDate exp = io.setLocalDate("Experation Date (If Applicable): ");
 		int count = io.readInt("Number of Items in inventory: ");
 		BigDecimal ppu = io.readBigDecimal("Price per unit: ");

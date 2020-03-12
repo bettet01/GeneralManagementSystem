@@ -48,9 +48,8 @@ public class GmsDaoFileImpl implements GmsDao {
             departmentMap.put(department, newDepartment);
         }
         System.out.println(Arrays.toString(departments));
-        
-        //return departmentMap;
 
+        //return departmentMap;
     }
 
     public static final String ROSTER_FILE = "roster.txt";
@@ -86,7 +85,6 @@ public class GmsDaoFileImpl implements GmsDao {
 
     @Override
     public HashMap<String, Department> loadLibrary() throws GmsDaoException {
-        Scanner scanner;
 
         int count = 0;
 
@@ -103,35 +101,36 @@ public class GmsDaoFileImpl implements GmsDao {
         HashMap<String, Department> departmentMap = new HashMap<>();
         for (String department : departments) {
             Department newDepartment = new Department(department);
-            departmentMap.put(department, newDepartment);
+
+            try {
+
+                Scanner scanner = new Scanner(
+                        new BufferedReader(
+                                new FileReader("./resources/" + department + ".txt")));
+                String currentLine;
+
+                Item currentItem;
+
+                while (scanner.hasNextLine()) {
+
+                    currentLine = scanner.nextLine();
+
+                    currentItem = unmarshallItem(currentLine);
+
+                    newDepartment.addItem(currentItem);
+                }
+
+                scanner.close();
+
+                departmentMap.put(department, newDepartment);
+            } catch (FileNotFoundException e) {
+                System.out.println("Hello");
+            }
+
+            
+
         }
-
         return departmentMap;
-
-//        try {
-//
-//            scanner = new Scanner(
-//                    new BufferedReader(
-//                            new FileReader(file)));
-//        } catch (FileNotFoundException e) {
-//            throw new GmsDaoException(
-//                    "-_- Could not load library data into memory.", e);
-//        }
-//
-//        String currentLine;
-//
-//        Item currentItem;
-//
-//        while (scanner.hasNextLine()) {
-//
-//            currentLine = scanner.nextLine();
-//
-//            currentItem = unmarshallItem(currentLine);
-//
-//            items.put(currentItem.getName(), currentItem);
-//        }
-//
-//        scanner.close();
     }
 
     private String marshallItem(Item aItem) {
@@ -173,6 +172,5 @@ public class GmsDaoFileImpl implements GmsDao {
 //
 //        out.close();
     }
-
 
 }
